@@ -1,5 +1,22 @@
 import { isEnabled } from './lib/feature';
 
+const filter = [{
+        id: 'all',
+        description: 'Mostrar todos',
+        checked: true
+    },
+    {
+        id: 'done',
+        description: 'Somente fechados',
+        checked: false
+    },
+    {
+        id: 'open',
+        description: 'Somente abertos',
+        checked: false
+    }
+]
+
 export function render(el, state) {
     const todoItems = state.todos.map(renderTodoItem).join('');
     el.innerHTML = renderApp(
@@ -9,13 +26,24 @@ export function render(el, state) {
 }
 
 function renderApp(input, todoList) {
-    if (isEnabled('renderBottom')) {
+    if (isEnabled('renderBottom') && isEnabled('filter')) {
+        return filterTop(input, todoList)
+    } else if (isEnabled('renderBottom')) {
         return renderAddTodoAtBottom(input, todoList);
     } else if (isEnabled('filter')) {
         return renderFiltersBelowItems(input, todoList);
     } else {
         return renderAddTodoAtTop(input, todoList);
     }
+}
+
+function filterTop(input, todoList) {
+    const filters = filter.map(renderRadioFilters).join('');
+    return `<div id="app">
+        ${filters}
+        ${todoList}
+        ${input}
+    </div>`;
 }
 
 function renderAddTodoAtTop(input, todoList) {
@@ -26,23 +54,6 @@ function renderAddTodoAtTop(input, todoList) {
 }
 
 function renderFiltersBelowItems(input, todoList) {
-    const filter = [{
-            id: 'all',
-            description: 'Mostrar todos',
-            checked: true
-        },
-        {
-            id: 'done',
-            description: 'Somente fechados',
-            checked: false
-        },
-        {
-            id: 'open',
-            description: 'Somente abertos',
-            checked: false
-        }
-    ]
-
     const filters = filter.map(renderRadioFilters).join('');
     return `<div id="app">
         ${input}
