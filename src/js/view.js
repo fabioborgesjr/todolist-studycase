@@ -11,6 +11,8 @@ export function render(el, state) {
 function renderApp(input, todoList) {
     if (isEnabled('renderBottom')) {
         return renderAddTodoAtBottom(input, todoList);
+    } else if (isEnabled('filter')) {
+        return renderFiltersBelowItems(input, todoList);
     } else {
         return renderAddTodoAtTop(input, todoList);
     }
@@ -20,6 +22,32 @@ function renderAddTodoAtTop(input, todoList) {
     return `<div id="app">
         ${input}
         ${todoList}
+    </div>`;
+}
+
+function renderFiltersBelowItems(input, todoList) {
+    const filter = [{
+            id: 'all',
+            description: 'Mostrar todos',
+            checked: true
+        },
+        {
+            id: 'done',
+            description: 'Somente fechados',
+            checked: false
+        },
+        {
+            id: 'open',
+            description: 'Somente abertos',
+            checked: false
+        }
+    ]
+
+    const filters = filter.map(renderRadioFilters).join('');
+    return `<div id="app">
+        ${input}
+        ${todoList}
+        ${filters}
     </div>`;
 }
 
@@ -44,4 +72,8 @@ function renderTodoItem(todo) {
         <input class="js_toggle_todo" type="checkbox" data-id="${todo.id}"${todo.done ? ' checked' : ''}>
         ${todo.text}
     </li>`;
+}
+
+function renderRadioFilters(filter) {
+    return `<label><input class="radio-filters" id="${filter.id}" type="radio" name="filter" ${filter.checked ? 'checked' : ''}>${filter.description}</label>`
 }
