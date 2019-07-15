@@ -68,9 +68,8 @@ function renderFiltersBelowItems(input, todoList, intro) {
     </div>`;
 }
 
-function renderAddTodoAtBottom(input, todoList) {
+function renderAddTodoAtBottom(input, todoList, intro) {
     return `<div id="app">
-        <h1>TodoApp</h1>
         ${intro}
         ${todoList}
         ${input}
