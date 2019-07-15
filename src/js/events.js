@@ -1,4 +1,4 @@
-import { todos } from './state';
+import { todos } from './todoReducer';
 import { listen } from './lib/events';
 import { addTodo, toggleTodoState } from './actions';
 

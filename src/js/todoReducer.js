@@ -1,11 +1,11 @@
-import { createStore } from './lib/state';
 import { add, update, getAll } from './service';
+import { createStore } from 'redux';
 
 const initialState = {
     todos: getAll()
 }
 
-function todoChangeHandler(state, change) {
+function todoChangeHandler(state = initialState, change) {
     switch (change.type) {
         case 'ADD_TODO':
             const todo = {
@@ -15,7 +15,7 @@ function todoChangeHandler(state, change) {
             }
             state.todos.push(todo);
             add(todo);
-            break;
+            return state;
         case 'TODO_TOGGLE_DONE':
             for (let todo of state.todos) {
                 if (todo.id === change.id) {
@@ -24,11 +24,11 @@ function todoChangeHandler(state, change) {
                     break;
                 }
             }
-            break;
+            return state;
         case 'SEARCH':
             state.todos = change.payload
-            break;
+            return state;
     }
 }
 
-export const todos = createStore(todoChangeHandler, initialState);
+export const todos = createStore(todoChangeHandler);
