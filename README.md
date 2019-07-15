@@ -154,7 +154,7 @@ a sua solução para isso funcione no Chrome e no Firefox.
 Se desejar, utilizar alguma tecnologia no back para salvar, apenas nos informe como
 iremos ligá-la para revisar e nos envies os fontes também.
 
-### WEB-201: Extraia o CSS em um arquivo separado
+### WEB-201: Extraia o CSS em um arquivo separado (Plugin instalado na tarefa e commit WEB-110)
 
 Atualmente, o CSS da aplicação está incluído no `bundle.js`.
 Entretanto, nossos usuários começaram a comentar sobre a aplicação estar
