@@ -21,56 +21,71 @@ export function render(el, state) {
     const todoItems = state.todos.map(renderTodoItem).join('');
     el.innerHTML = renderApp(
         renderInput(),
-        renderTodos(todoItems)
+        renderTodos(todoItems),
+        renderIntro()
     );
 }
 
-function renderApp(input, todoList) {
+function renderApp(input, todoList, intro) {
     if (isEnabled('renderBottom') && isEnabled('filter')) {
-        return filterTop(input, todoList)
+        return filterTop(input, todoList, intro)
     } else if (isEnabled('renderBottom')) {
-        return renderAddTodoAtBottom(input, todoList);
+        return renderAddTodoAtBottom(input, todoList, intro);
     } else if (isEnabled('filter')) {
-        return renderFiltersBelowItems(input, todoList);
+        return renderFiltersBelowItems(input, todoList, intro);
     } else {
-        return renderAddTodoAtTop(input, todoList);
+        return renderAddTodoAtTop(input, todoList, intro);
     }
 }
 
-function filterTop(input, todoList) {
+function filterTop(input, todoList, intro) {
     const filters = filter.map(renderRadioFilters).join('');
     return `<div id="app">
+        ${intro}
+        <span>Opções</span>
         ${filters}
         ${todoList}
         ${input}
     </div>`;
 }
 
-function renderAddTodoAtTop(input, todoList) {
+function renderAddTodoAtTop(input, todoList, intro) {
     return `<div id="app">
+        ${intro}
         ${input}
         ${todoList}
     </div>`;
 }
 
-function renderFiltersBelowItems(input, todoList) {
+function renderFiltersBelowItems(input, todoList, intro) {
     const filters = filter.map(renderRadioFilters).join('');
     return `<div id="app">
+        ${intro}
         ${input}
         ${todoList}
+        <span>Opções</span>
         ${filters}
     </div>`;
 }
 
 function renderAddTodoAtBottom(input, todoList) {
     return `<div id="app">
+        <h1>TodoApp</h1>
+        ${intro}
         ${todoList}
         ${input}
     </div>`;
 }
 
 function renderInput() {
-    return `<div class="todo__input"><input type="text" id="todoInput"><button id="addTodo">Add</button></div>`;
+    return `<div class="todo__input row"><input type="text" id="todoInput" placeholder="Tarefa a ser adicionada" aria-label="Tarefa a ser adicionada"><button id="addTodo" class="btn btn-outline-secondary">Adicionar</button></div>`;
+}
+
+function renderIntro() {
+    return `<div class="intro">
+        <h1>TodoApp</h1>
+        <h3>Um estudo de caso</h3>
+    </div>`
 }
 
 function renderTodos(todoItems) {
@@ -86,5 +101,5 @@ function renderTodoItem(todo) {
 }
 
 function renderRadioFilters(filter) {
-    return `<label><input class="radio-filters" id="${filter.id}" type="radio" name="filter" ${filter.checked ? 'checked' : ''}>${filter.description}</label>`
+    return `<div class="radio-filters"><input class="radio-filters-input" id="${filter.id}" type="radio" name="filter" ${filter.checked ? 'checked' : ''}><label>${filter.description}</label></div>`
 }

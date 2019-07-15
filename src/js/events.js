@@ -28,7 +28,7 @@ export function registerEventHandlers() {
         event.stopPropagation();
     });
 
-    listen('click', ".radio-filters", event => {
+    listen('click', ".radio-filters-input", event => {
         showTodosByFilter(event.target.id)
     })
 }
