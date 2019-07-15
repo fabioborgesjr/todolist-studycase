@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require("path");
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: ['babel-polyfill', path.normalize(__dirname + '/src/js/main')],
@@ -16,7 +17,13 @@ module.exports = {
         }
     },
     plugins: [
-        new ExtractTextPlugin('app.css')
+        new ExtractTextPlugin('app.css'),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false },
+            beautify: false,
+            comments: false,
+            test: /\.js(\?.*)?$/i,
+        })
     ],
     module: {
         loaders: [{
@@ -31,8 +38,10 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-            }, {
+                loader: ExtractTextPlugin.extract('style-loader', { minimize: true }),
+                loader: ExtractTextPlugin.extract('css-loader', { minimize: true })
+            },
+            {
                 test: /\.woff|.woff2|.ttf|.eot|.svg*.*$/,
                 loader: 'file'
             }
