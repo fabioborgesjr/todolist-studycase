@@ -1,46 +1,32 @@
 import { createStore } from './lib/state';
+import { add, update, getAll } from './service';
 
 const initialState = {
-    todos: [
-        {
-            id: 0,
-            text: 'Take a look at the application',
-            done: true
-        },
-        {
-            id: 1,
-            text: 'Add ability to filter todos',
-            done: false
-        },
-        {
-            id: 2,
-            text: 'Filter todos by status',
-            done: false
-        },
-        {
-            id: 3,
-            text: 'Filter todos by text',
-            done: false
-        }
-    ]
-};
+    todos: getAll()
+}
 
 function todoChangeHandler(state, change) {
     switch (change.type) {
         case 'ADD_TODO':
-            state.todos.push({
+            const todo = {
                 id: state.todos.length,
                 text: change.text,
                 done: false
-            });
+            }
+            state.todos.push(todo);
+            add(todo);
             break;
         case 'TODO_TOGGLE_DONE':
             for (let todo of state.todos) {
                 if (todo.id === change.id) {
                     todo.done = !todo.done;
+                    update(todo)
                     break;
                 }
             }
+            break;
+        case 'SEARCH':
+            state.todos = change.payload
             break;
     }
 }

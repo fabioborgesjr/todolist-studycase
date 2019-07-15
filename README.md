@@ -18,6 +18,18 @@ módulos requeridos da aplicação, usando o comando:
 npm install
 ```
 
+A aplicação utiliza o json-server para armazenar os dados da aplicação, primeiro instale a dependencia globalmente:
+
+```sh
+npm install -g json-server
+```
+
+Feita a instalação, execute o comando abaixo na raíz do projeto:
+
+```sh
+json-server --watch db.json
+```
+
 Para criar o build da aplicação, use este comando:
 
 ```sh
