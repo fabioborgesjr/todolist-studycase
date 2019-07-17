@@ -24,25 +24,19 @@ A aplicação utiliza o json-server para armazenar os dados da aplicação, prim
 npm install -g json-server
 ```
 
-Feita a instalação, execute o comando abaixo na raíz do projeto:
+Feita a instalação, execute o comando abaixo na raíz do projeto para iniciar a API da aplicação:
 
 ```sh
 json-server --watch db.json
 ```
 
-Para criar o build da aplicação, use este comando:
+Para rodar a aplicação com o `webpack-dev-server`, use este comando:
 
 ```sh
-npm run build
+npm run dev-server
 ```
 
-e para continuar recriando o build enquanto trabalha, use:
-
-```sh
-npm start
-```
-
-Assim que você tiver o bundle construído, você pode abrir o `index.html`  no seu browser e 
+Assim que você tiver o bundle construído, você pode acessar o endereço `http://localhost:8080`no seu browser e 
 verificar se a aplicação está funcionando corretamente.
 
 ## Como habilitar um teste?
@@ -55,7 +49,7 @@ e adicionará no final a hash "#renderBottom".
 
 Example URL:
 ```
-file:///C:/Users/user/Desktop/TodoList/index.html#renderBottom
+http://localhost:8080/#/todos/#filter#renderBottom
 ```
 Note que agora o campo input está renderizado abaixo da lista.
 
