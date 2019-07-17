@@ -23,6 +23,9 @@ module.exports = {
             beautify: false,
             comments: false,
             test: /\.js(\?.*)?$/i,
+        }),
+        new webpack.DefinePlugin({
+            'process.env.USE_FILTER': JSON.stringify(process.env.USE_FILTER || 'false')
         })
     ],
     module: {

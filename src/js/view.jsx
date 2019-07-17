@@ -150,7 +150,7 @@ export class Todo extends Component {
             return this.filterTop()
         } else if (isEnabled('renderBottom')) {
             return this.renderAddTodoAtBottom();
-        } else if (isEnabled('filter')) {
+        } else if (process.env.USE_FILTER === 'true') {
             return this.renderFiltersBelowItems();
         } else {
             return this.renderAddTodoAtTop();
