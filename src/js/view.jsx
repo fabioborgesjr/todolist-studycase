@@ -3,15 +3,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { isEnabled } from './lib/feature';
+import { isEnabled } from './lib/feature'
 
-import { addTodo, updateTodo, getAll, refresh } from './actions';
+import { addTodo, updateTodo, getAll, refresh } from './actions'
 
-import Intro from './components/template/Intro';
-import Input from './components/template/Input';
-import Options from './components/template/Options';
-import Filters from './components/template/Filters';
-import Todos from './components/template/Todos';
+import Intro from './components/template/Intro'
+import Input from './components/template/Input'
+import Options from './components/template/Options'
+import Filters from './components/template/Filters'
+import Todos from './components/template/Todos'
 
 const filterOptions = {
     ALL: 'all',
@@ -44,7 +44,7 @@ export class Todo extends Component {
     }
 
     update(event) {
-        const id = Number.parseInt(event.target.getAttribute('data-id'), 10);
+        const id = Number.parseInt(event.target.getAttribute('data-id'), 10)
         this.props.updateTodo(id)
     }
 
@@ -52,10 +52,12 @@ export class Todo extends Component {
         return (
             <div>
                 <Intro />
-                <Options />
-                <Filters onClick={this.showTodosByFilter.bind(this)} />
-                <Todos todos={this.props.todos} onClick={this.update.bind(this)}/>
-                <Input onClick={this.add.bind(this)} onKeyUp={this.keyHandler.bind(this)} />
+                <div className="todo__main">
+                    <Options />
+                    <Filters onClick={this.showTodosByFilter.bind(this)} />
+                    <Todos todos={this.props.todos} onClick={this.update.bind(this)} />
+                    <Input onClick={this.add.bind(this)} onKeyUp={this.keyHandler.bind(this)} />
+                </div>
             </div>
         )
     }
@@ -65,8 +67,10 @@ export class Todo extends Component {
         return (
             <div>
                 <Intro />
-                <Input onClick={this.add.bind(this)} onKeyUp={this.keyHandler.bind(this)} />
-                <Todos todos={this.props.todos} onClick={this.update.bind(this)}/>
+                <div className="todo__main">
+                    <Input onClick={this.add.bind(this)} onKeyUp={this.keyHandler.bind(this)} />
+                    <Todos todos={this.props.todos} onClick={this.update.bind(this)} />
+                </div>
             </div>
         )
     }
@@ -75,10 +79,12 @@ export class Todo extends Component {
         return (
             <div>
                 <Intro />
-                <Input onClick={this.add.bind(this)} onKeyUp={this.keyHandler.bind(this)} />
-                <Todos todos={this.props.todos} onClick={this.update.bind(this)}/>
-                <Options />
-                <Filters onClick={this.showTodosByFilter.bind(this)} />
+                <div className="todo__main">
+                    <Input onClick={this.add.bind(this)} onKeyUp={this.keyHandler.bind(this)} />
+                    <Todos todos={this.props.todos} onClick={this.update.bind(this)} />
+                    <Options />
+                    <Filters onClick={this.showTodosByFilter.bind(this)} />
+                </div>
             </div>
         )
     }
@@ -87,8 +93,10 @@ export class Todo extends Component {
         return (
             <div>
                 <Intro />
-                <Todos todos={this.props.todos} onClick={this.update.bind(this)}/>
-                <Input onClick={this.add.bind(this)} onKeyUp={this.keyHandler.bind(this)} />
+                <div className="todo__main">
+                    <Todos todos={this.props.todos} onClick={this.update.bind(this)} />
+                    <Input onClick={this.add.bind(this)} onKeyUp={this.keyHandler.bind(this)} />
+                </div>
             </div>
         )
     }
@@ -98,13 +106,13 @@ export class Todo extends Component {
      * @param {string} id id do elemento
      */
     focus(id) {
-        const element = document.getElementById(id);
-        element.focus();
+        const element = document.getElementById(id)
+        element.focus()
     }
 
     showTodosByFilter(event) {
-        const done = document.querySelectorAll('.todo__item--done');
-        const open = document.querySelectorAll('.todo__item--open');
+        const done = document.querySelectorAll('.todo__item--done')
+        const open = document.querySelectorAll('.todo__item--open')
 
         this.filterTodos(done, event.target.id)
         this.filterTodos(open, event.target.id)
@@ -118,28 +126,28 @@ export class Todo extends Component {
     filterTodos(elm, option) {
         elm.forEach(item => {
             if (item) {
-                const isChecked = item.children[0].checked;
+                const isChecked = item.children[0].checked
 
                 switch (option) {
 
                     case filterOptions.DONE:
                         if (isChecked) {
-                            item.style.display = 'block';
+                            item.style.display = 'block'
                         } else {
-                            item.style.display = 'none';
+                            item.style.display = 'none'
                         }
-                        break;
+                        break
                     case filterOptions.OPEN:
                         if (isChecked) {
-                            item.style.display = 'none';
+                            item.style.display = 'none'
                         } else {
-                            item.style.display = 'block';
+                            item.style.display = 'block'
                         }
-                        break;
+                        break
                     case filterOptions.ALL:
                     default:
-                        item.style.display = 'block';
-                        break;
+                        item.style.display = 'block'
+                        break
                 }
             }
         })
@@ -149,11 +157,11 @@ export class Todo extends Component {
         if (isEnabled('renderBottom') && isEnabled('filter')) {
             return this.filterTop()
         } else if (isEnabled('renderBottom')) {
-            return this.renderAddTodoAtBottom();
+            return this.renderAddTodoAtBottom()
         } else if (process.env.USE_FILTER === 'true') {
-            return this.renderFiltersBelowItems();
+            return this.renderFiltersBelowItems()
         } else {
-            return this.renderAddTodoAtTop();
+            return this.renderAddTodoAtTop()
         }
     }
 }

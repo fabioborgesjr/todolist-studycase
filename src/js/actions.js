@@ -1,20 +1,22 @@
-import Axios from "axios";
+import Axios from "axios"
 
 const url = 'http://localhost:3000'
 
 export const addTodo = () => {
 
     return (dispatch, getState) => {
-        const todoInput = document.getElementById('todoInput').value
+        const todoInput = document.getElementById('todoInput')
         const todos = getState().todo.todos
 
         const todo = {
             id: todos.length,
-            text: todoInput,
+            text: todoInput.value,
             done: false
         }
 
         Axios.post(`${url}/todos`, todo).then(resp => {
+            todoInput.value = ""
+
             getAll()(dispatch)
         })
     }
@@ -41,7 +43,7 @@ export const updateTodo = (id) => {
         const todos = getState().todo.todos
         for (let todo of todos) {
             if (todo.id === id) {
-                todo.done = !todo.done;
+                todo.done = !todo.done
 
                 Axios.put(`${url}/todos/${id}`, todo).then(resp => {
                     dispatch({
@@ -50,7 +52,7 @@ export const updateTodo = (id) => {
                     })
                 })
 
-                break;
+                break
             }
         }
     }

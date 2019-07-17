@@ -25,6 +25,22 @@ body {
 .todo__input,
 .todo__item {
     margin: 10px;
+    display: block;
+}
+
+.js_toggle_todo {
+    margin-inline-end: 10px !important;
+}
+
+.todo__main {
+    position: relative;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    height: 200px;
 }
 
 .todo__input {

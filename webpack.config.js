@@ -1,7 +1,8 @@
-const webpack = require('webpack');
-const path = require("path");
+const webpack = require('webpack')
+const path = require("path")
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: '.\\src\\js\\main.jsx',
@@ -9,6 +10,11 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.join(__dirname, 'dist')
+    },
+    devServer: {
+        hot: true,
+        compress: true,
+        port: 8080
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
@@ -18,11 +24,9 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('app.css'),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: { warnings: false },
-            beautify: false,
-            comments: false,
-            test: /\.js(\?.*)?$/i,
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+            filename: 'index.html'
         }),
         new webpack.DefinePlugin({
             'process.env.USE_FILTER': JSON.stringify(process.env.USE_FILTER || 'false')
@@ -33,7 +37,6 @@ module.exports = {
                 loader: 'babel-loader',
                 test: /.js[x]?$/,
                 exclude: /node_modules/,
-                include: [path.resolve(__dirname, 'src', 'js')],
                 query: {
                     plugins: ['transform-object-rest-spread'],
                     presets: ['es2015', 'react']
@@ -50,4 +53,4 @@ module.exports = {
             }
         ]
     }
-};
+}

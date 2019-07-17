@@ -1,3 +1,3 @@
 export function isEnabled(name) {
-    return window.location.hash.split('#').includes(name);
+    return window.location.hash.split('#').includes(name)
 }
