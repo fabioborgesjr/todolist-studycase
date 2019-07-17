@@ -9,7 +9,6 @@ input {
 html,
 body,
 .todo {
-    margin: 0;
     padding: 0;
     list-style-type: none;
 }
@@ -28,6 +27,11 @@ body {
     margin: 10px;
 }
 
+.todo__input {
+    margin-top: 30px;
+    display: block;
+}
+
 .todo__item--done {
     text-decoration: line-through;
 }
@@ -35,10 +39,7 @@ body {
 .intro {
     text-align: center;
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-}
-
-span {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .radio-filters {
@@ -57,6 +58,14 @@ span {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
+.todo,
+.options,
+.radios {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+}
+
 #app {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: grid;
@@ -64,6 +73,7 @@ span {
     width: 100%;
     justify-content: center;
     align-items: center;
+    padding-top: 50px;
 }
 
 #todoInput {
@@ -74,7 +84,7 @@ span {
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
-    border-radius: 4px
+    border-radius: 4px;
 }
 
 #addTodo {
